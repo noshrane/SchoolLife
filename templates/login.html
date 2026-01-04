@@ -1,0 +1,55 @@
+<!DOCTYPE html>   
+
+<html lang="en">  
+
+  <head>           
+
+    <meta charset="utf-8">      
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />     
+
+    <title>Login</title>
+    
+    <link href="/static/styles.css" rel="stylesheet"/>     
+
+  </head>
+
+  <body class="login_page">
+
+      <form action="/login" method="post">
+          <div class="align-stuff">
+
+              <div class="login-box">
+                <h1 class="login-heading">Welcome back</h1>
+
+                <div class="inner-box purple">
+                  <div class="circle blue"></div>
+                  <div class="thick-line blue"></div>
+                  <div class="thin-line blue"></div>
+
+                  <input class="login-input" type="text" name="username" placeholder="Username"/>
+                  <input class="login-input" type="password" name="password" placeholder="Password"/>
+                  <button class="button blue" type="submit" name="login">Log In</button>
+                </div>
+              </div>
+              
+              <div class="divider"></div>
+
+              <div class="signup-box">
+                <h1 class="signup-heading">Get Started</h1>
+
+                <div class="inner-box blue">
+                  <div class="circle purple"></div>
+                  <div class="thick-line purple"></div>
+                  <div class="thin-line purple"></div>
+
+                  <input class="login-input" type="text" name="username-r" placeholder="Username"/>
+                  <input class="login-input" type="password" name="password-r" placeholder="Password"/>
+                  <button class="button purple" type="submit" name="signup">Sign up</button>
+                </div>
+              </div>
+          </div>
+      </form>
+
+      <p class="error">{{ message }}</p>
+  </body>
+</html>             
