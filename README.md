@@ -1,0 +1,2 @@
+# SchoolLife
+For Alameda Hacks
