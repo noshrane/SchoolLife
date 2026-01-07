@@ -1,0 +1,46 @@
+<!DOCTYPE html>   
+
+<html lang="en">  
+
+  <head>           
+
+    <meta charset="utf-8">      
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />     
+
+    <title>Join community</title>
+        
+    <link href="/static/styles.css" rel="stylesheet"/>     
+  </head>
+
+  <body class="join_community_page">
+    <div class="align-horizontal">
+        <h1 class="logo">SchoolLife</h1>
+        <div class="setting-icon"></div>
+    </div>
+    <div class="align-vertical">
+        <h3 class="grey-font medium step">Step 1 of 2</h3>
+        <h2 class="white-font big join_a_community">Join a community</h2>
+        <h3 class="grey-font medium find_your_school">Find your school to view other students.</h3>
+
+        <form class="inline-form" action="/join_community" method="post">
+            <select name="community" id="community" class="dropdown purple_box medium black">
+                    <option value="null">None selected</option>
+                    {% for community in list %}
+                        <option value="{{ community }}">{{ community }}</option>
+                    {% endfor %}
+            </select>
+            <button class="save" type="submit"></button>
+        </form>
+
+        <h4 class="grey-font small cant_find">Can't find yours ? <a href="/create_community" class="be_first">Be the first</a></h4>
+        <div class="three-dots">
+                <div class="dot blue_fig"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+        </div>
+
+        <div class="error"><p>{{ message }}</p></div>
+
+    </div>
+  </body>
+</html>
