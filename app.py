@@ -21,6 +21,7 @@ class Users(db.Model): # defined users model
     username = db.Column(db.String)
     password = db.Column(db.String) # hash
     community = db.Column(db.String)
+    schedule_given = db.Column(db.Boolean)
 
 class Schedule(db.Model): # defined schedules model
     id = db.Column(db.Integer, primary_key=True)
@@ -35,7 +36,7 @@ class Community(db.Model): # defined communities model
     periods = db.Column(db.Integer)
 
 with app.app_context(): # create tabel
-    # db.drop_all()
+    #db.drop_all()
     db.create_all()
 
 @app.after_request 
@@ -61,6 +62,8 @@ def home():
 
     if user.community == "null":
         return redirect("/join_community")
+    elif not user.schedule_given:
+        return redirect("/schedule")
     else:
         return render_template("home.html", message="")
 
@@ -108,6 +111,7 @@ def login():
                     username=request.form.get("username-r"),
                     password=password_hash,
                     community="null",
+                    schedule_given=False,
                 )
 
                 db.session.add(one_user)
@@ -141,6 +145,7 @@ def join_community():
         user = Users.query.filter_by(id=session.get("user_id")).first()
 
         user.community = selected_community
+        db.session.commit()
 
         return redirect("/schedule")
 
@@ -170,5 +175,42 @@ def create_community():
 @app.route("/schedule")
 def schedule():
     return render_template("schedule.html")
+
+@app.route("/create_schedule", methods=["GET", "POST"])
+def create_schedule():
+    if request.method == "GET":
+        user = Users.query.filter_by(id=session.get("user_id")).first()
+        community = Community.query.filter_by(community=user.community).first()
+
+        if not community:
+            return redirect("/join_community")
+
+        return render_template("create_schedule.html", periods=community.periods, message="")
+
+    else:
+        user = Users.query.filter_by(id=session.get("user_id")).first()
+        community = Community.query.filter_by(community=user.community).first()
+
+        for i in range(community.periods):
+            if not request.form.get(f"subject_{ i }") or not request.form.get(f"teacher_{ i }"):
+                return render_template("create_schedule.html", periods=community.periods, message="Please fill all fields.")
+        
+        for i in range(community.periods):
+            one_row = Schedule(
+                username = user.username,
+                period = i,
+                subject = request.form.get(f"subject_{ i }"),
+                teacher = request.form.get(f"teacher_{ i }"),
+            )
+
+            db.session.add(one_row)
+        
+        user.schedule_given = True
+        db.session.commit()
+
+        return redirect("/")
+
+@app.route("/create_schedule", methods=["GET", "POST"])
+def create_schedule():
 
     

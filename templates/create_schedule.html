@@ -1,0 +1,47 @@
+<!DOCTYPE html>   
+
+<html lang="en">  
+
+  <head>           
+
+    <meta charset="utf-8">      
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />     
+
+    <title>Create schedule</title>
+        
+    <link href="/static/styles.css" rel="stylesheet"/>     
+  </head>
+
+  <body class="create_schedule_page">
+    <div class="align-horizontal">
+        <h1 class="logo">SchoolLife</h1>
+        <div class="setting-icon"></div>
+    </div>
+
+    <div class="align-vertical-2">
+        <h2 class="white-font big join_a_community shift">Schedule</h2>
+
+        <form class="align-vert" action="/create_schedule" method="post">
+            {% for i in range(periods) %}
+                <h3 class="grey-font medium">Period {{ i + 1 }}</h3>
+                <div class="vert-box">
+                        <div class="label-input">
+                            <h3 class="school_name grey-font medium">Subject</h3>
+                            <h3 class="periods_per grey-font medium">Teacher's last name</h3>
+                        </div>
+
+                        <div class="inputs">
+                            <input id="school" name="subject_{{ i }}" type="text" placeholder="E.g. AP Chemistry">
+                            <input id="periods" name="teacher_{{ i }}" type="text" placeholder="E.g. Rogers">
+                        </div>
+                </div>
+            {% endfor %}
+
+            <button class="purple_box create_button" type="submit">Submit</button>
+        </form>
+
+        <div class="error"><p>{{ message }}</p></div>
+
+    </div>
+  </body>
+</html>
