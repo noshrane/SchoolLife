@@ -13,9 +13,19 @@
     font-family: sans-serif;
 }
 
-.create_schedule_page {
+.create_schedule_page,
+.home_page {
     background: #342098;
     width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.settings_page {
+    background: #1A0E56;
+    width: 100%;
+    height: 100vh;
     margin: 0;
     padding: 0;
     font-family: sans-serif;
@@ -230,11 +240,18 @@
 }
 
 .setting-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #1A0E56;
     margin-top: 5px;
+    font-size: 1rem;
+    color: white;
+    text-align: center;
+}
+
+.settings {
+    background: #1A0E56;
+    border-radius: 15%;
+    padding: 10px 30px;
+    text-decoration: none;
+    color: white;
 }
 
 .logo {
@@ -296,7 +313,6 @@
 .create_button {
     width: 300px;
     height: 80px;
-    font-size: 2rem;
     padding-top: 10px;
     padding-bottom: 10px;
     border: none;
@@ -323,3 +339,131 @@
     margin-top: 30px;
 }
 
+.small-medium {
+    font-size: 1.5rem;
+}
+
+.single_schedule {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
+}
+
+.profile {
+    margin-right: 5%;
+    margin-left: 4%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+}
+
+.username {
+    background: #1A0E56;
+    width: 115px;
+    height: 30px;
+    margin-top: -15px;
+    padding: 5px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.squares {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.rect {
+    width: 182px;
+    height: 75px;
+    margin-right: 15px;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.bottom {
+    background: white;
+}
+
+
+.top-squares,
+.bottom-squares {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.community-name {
+    padding-left: 2%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    width: 100%;
+    background: #1A0E56;
+}
+
+.align-hori-2 {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.purple-divider {
+    width: 95%;
+    height: 5px;
+    background: #C487FE;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.logout-button {
+    background: #C487FE;
+    width: 200px;
+    height: 80px;
+    border-radius: 80px;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-input {
+    width: 300px;
+    height: 35px;
+}
+
+.grey-input {
+    background: rgb(149, 149, 149);
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.settings-2 {
+    margin-right: 67%;
+}
+
+.settings-labels {
+    margin: 20px 5%;
+    margin-right: 3%;
+    color: white;
+}
+
+.center {
+    justify-content: center;
+}
+
+.set-button {
+    margin-left: 20px;
+    background: #C487FE;
+}
+
+a {
+    text-decoration: none;
+}

@@ -9,13 +9,54 @@
 
     <title>Home</title>
     
+    <style>
+      .top {
+         background: {{ color }};
+      }
+
+      .profile-color {
+        width: 142px;
+        height: 140px;
+        border-radius: 50%;
+        margin-bottom: 3px;
+        background: {{ color }};
+      }
+    </style>
+
     <link href="/static/styles.css" rel="stylesheet"/>     
 
   </head>
 
-  <body>
+  <body class="home_page"> 
     
-    <a href="/logout">Logout</a>
+    <div class="align-horizontal">
+        <h1 class="logo">SchoolLife</h1>
+        <div class="setting-icon"><a href="/settings" class="settings">settings</a></div>
+    </div>
+    
+    <h1 class="white-font community-name big">{{ community }}</h1>
+
+    {% for item in total %}
+      <div class="single_schedule">
+        <div class="profile">
+          <div class="profile-color"></div>
+          <div class="username white-font">{{ item[0] }}</div>
+        </div>
+        <div class="squares">
+          <div class="top-squares">
+            {% for i in range(periods) %}
+              <div class="rect top"><p class="subject">{{ item[i + 1] }}</p></div>
+            {% endfor %}
+          </div>
+          <div class="bottom-squares">
+            {% for i in range(periods) %}
+              <div class="rect bottom"><p class="teacher">{{ item[i + 1 + periods] }}</p></div>
+            {% endfor %}
+          </div>
+        </div>
+
+      </div>
+    {% endfor %}
 
   </body>
 

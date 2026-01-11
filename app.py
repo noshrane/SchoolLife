@@ -22,6 +22,7 @@ class Users(db.Model): # defined users model
     password = db.Column(db.String) # hash
     community = db.Column(db.String)
     schedule_given = db.Column(db.Boolean)
+    color = db.Column(db.String)
 
 class Schedule(db.Model): # defined schedules model
     id = db.Column(db.Integer, primary_key=True)
@@ -36,7 +37,7 @@ class Community(db.Model): # defined communities model
     periods = db.Column(db.Integer)
 
 with app.app_context(): # create tabel
-    #db.drop_all()
+    db.drop_all()
     db.create_all()
 
 @app.after_request 
@@ -60,13 +61,35 @@ def home():
     if not user:
         return redirect("/login")
 
-    if user.community == "null":
+    if user.community == "null" or not user.community:
         return redirect("/join_community")
     elif not user.schedule_given:
         return redirect("/schedule")
-    else:
-        return render_template("home.html", message="")
 
+    filtered_members = Users.query.filter_by(community=user.community, schedule_given=True).all()
+    members = [user.username for user in filtered_members]
+
+    comm = Community.query.filter_by(community=user.community).first()
+
+    columns = comm.periods * 2 + 1
+    rows = len(members)
+
+    big_list = [[None for _ in range(columns)] for _ in range(rows)]
+    # each array in this 2d array will be as follows: member, subject, teacher, subject, teacher (repeat as suitable)
+    
+    for i in range(len(members)):
+        big_list[i][0] = members[i]
+
+        filtered_schedule = Schedule.query.filter_by(username=members[i]).all()
+        subjects = [user.subject for user in filtered_schedule]
+        teachers = [user.teacher for user in filtered_schedule]
+
+        for a in range(len(subjects)):
+            big_list[i][a + 1] = subjects[a]
+            big_list[i][a + 1 + comm.periods] = teachers[a]
+    
+    print(big_list)
+    return render_template("home.html", total=big_list, periods=comm.periods, community=user.community, color=user.color)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -112,6 +135,7 @@ def login():
                     password=password_hash,
                     community="null",
                     schedule_given=False,
+                    color="#37a9c0"
                 )
 
                 db.session.add(one_user)
@@ -158,6 +182,7 @@ def create_community():
         if not request.form.get("school") or not request.form.get("periods"):
             return render_template("create_community.html", message="Please fill each field.")
  
+    
         one_community = Community(
             community=request.form.get("school"),
             periods=request.form.get("periods"),
@@ -208,9 +233,47 @@ def create_schedule():
         user.schedule_given = True
         db.session.commit()
 
+        return redirect("/setup")
+
+@app.route("/setup")
+def setup():
+    user = Users.query.filter_by(id=session.get("user_id")).first()
+
+    if user.community == "null" or not user.community:
+        return redirect("/join_community") 
+    
+    if not user.schedule_given:
+        return redirect("/schedule")
+
+    return render_template("setup.html")
+    
+@app.route("/settings", methods=["GET", "POST"])
+def settings():
+    user = Users.query.filter_by(id=session.get("user_id")).first()
+
+    if request.method == "GET":
+        return render_template("settings.html", username=user.username, community=user.community, color=user.color)
+
+    else:
+        former_username = user.username
+
+        if request.form.get("password"):
+            user.password = generate_password_hash(request.form.get("password"))
+        
+        if request.form.get("color"):
+            user.color = request.form.get("color")
+
+        if request.form.get("username"):
+            user.username = request.form.get("username")
+
+            rows = Schedule.query.filter_by(username=former_username).all()
+            for row in rows:
+                row.username = request.form.get("username")
+
+        db.session.commit()
+
         return redirect("/")
 
-@app.route("/create_schedule", methods=["GET", "POST"])
-def create_schedule():
+
 
     

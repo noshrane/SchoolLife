@@ -1,0 +1,61 @@
+<!DOCTYPE html>   
+
+<html lang="en">  
+
+  <head>           
+
+    <meta charset="utf-8">      
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />     
+
+    <title>Home</title>
+    
+    <styles>
+      
+    </styles>
+
+    <link href="/static/styles.css" rel="stylesheet"/>     
+
+  </head>
+
+  <body class="settings_page"> 
+    
+    <div class="align-horizontal">
+        <h1 class="logo">SchoolLife</h1>
+    </div>
+    
+    <div class="align-hori-2 center">
+        <h1 class="white-font big settings-2">Settings</h1>
+        <div class="logout-button"><a href="/logout" class="logout">Logout</a></div>
+    </div>
+
+    <form method="post" action="/settings">
+        <div class="purple-divider"></div>
+
+        <div class="align-hori-2">
+                <h2 class="settings-labels">Username</h2>
+                <input name="username" class="settings-input" type="text" placeholder="{{ username }}"/>
+        </div>
+        <div class="align-hori-2">
+                <h2 class="settings-labels">Password</h2>
+                <input name="password" class="settings-input" type="text" placeholder="..."/>
+        </div>
+        <div class="align-hori-2">
+                <h2 class="settings-labels">Community</h2>
+                <div class="grey-input settings-input">{{ community }}</div>
+        </div>
+        <div class="align-hori-2">
+                <h2 class="settings-labels">Profile color</h2>
+                <select name="color" class="settings-input">
+                    <option value="#37a9c0">Blue</option>
+                    <option value="#c03737">Red</option>
+                    <option value="#8e37c0">Purple</option>
+                    <option value="#37c080">Green</option>
+                    <option value="#c037a0">Pink</option>
+                </select>
+        </div>
+        <div class="purple-divider"></div>
+        <button type="submit" class="button set-button">Save</button>
+    </form>
+  </body>
+
+</html>             
