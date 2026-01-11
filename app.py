@@ -37,7 +37,7 @@ class Community(db.Model): # defined communities model
     periods = db.Column(db.Integer)
 
 with app.app_context(): # create tabel
-    db.drop_all()
+    # db.drop_all()
     db.create_all()
 
 @app.after_request 
@@ -68,6 +68,7 @@ def home():
 
     filtered_members = Users.query.filter_by(community=user.community, schedule_given=True).all()
     members = [user.username for user in filtered_members]
+    colors = [user.color for user in filtered_members]
 
     comm = Community.query.filter_by(community=user.community).first()
 
@@ -88,8 +89,8 @@ def home():
             big_list[i][a + 1] = subjects[a]
             big_list[i][a + 1 + comm.periods] = teachers[a]
     
-    print(big_list)
-    return render_template("home.html", total=big_list, periods=comm.periods, community=user.community, color=user.color)
+    
+    return render_template("home.html", total=big_list, periods=comm.periods, community=user.community, colors=colors, number=len(big_list))
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

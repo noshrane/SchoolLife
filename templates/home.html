@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />     
 
     <title>Home</title>
-    
+
     <style>
       .top {
          background: {{ color }};
@@ -36,21 +36,21 @@
     
     <h1 class="white-font community-name big">{{ community }}</h1>
 
-    {% for item in total %}
+    {% for i in range(number) %}
       <div class="single_schedule">
         <div class="profile">
-          <div class="profile-color"></div>
-          <div class="username white-font">{{ item[0] }}</div>
+          <div class="profile-color" style="width: 142px; height: 140px; border-radius: 50%; margin-bottom: 3px; background: {{ colors[i] }};"></div>
+          <div class="username white-font">{{ total[i][0] }}</div>
         </div>
         <div class="squares">
           <div class="top-squares">
-            {% for i in range(periods) %}
-              <div class="rect top"><p class="subject">{{ item[i + 1] }}</p></div>
+            {% for a in range(periods) %}
+              <div class="rect top" style="background: {{ colors[i] }};"><p class="subject">{{ total[i][a + 1] }}</p></div>
             {% endfor %}
           </div>
           <div class="bottom-squares">
-            {% for i in range(periods) %}
-              <div class="rect bottom"><p class="teacher">{{ item[i + 1 + periods] }}</p></div>
+            {% for a in range(periods) %}
+              <div class="rect bottom"><p class="teacher">{{ total[i][a + 1 + periods] }}</p></div>
             {% endfor %}
           </div>
         </div>
